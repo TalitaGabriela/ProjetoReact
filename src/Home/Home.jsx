@@ -7,7 +7,7 @@ export default function Home(){
     return(
         <div>
             <h1>Home</h1>
-            <Link to="/todo">PARA FAZER</Link>
+            <Link to="/todo">Lista de Atividades</Link>
             <p>{count}</p>
             <p>{name}</p>
             <button onClick={() => setCount(count+1)}>Count</button>

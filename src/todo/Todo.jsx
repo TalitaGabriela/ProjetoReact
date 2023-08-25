@@ -2,17 +2,32 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Todo(){
-    const [atividade, setAtivid] = useState("");
-    const [name, setName] = useState([]);
+    const [atividade, setAtividade] = useState("");
+    const [lista, setLista] = useState([]);
+    const [id,setId] = useState(1);
+    const salvar = (e) =>{
+        e.preventDefault();
+        setLista([...lista,{
+            atividade: atividade,
+            id: id
+        }]);
+        setId(id+1);
+    };
+
     return(
         <div>
-            <h1>Home</h1>
-            <Link to="/todo">PARA FAZER</Link>
-            <p>{count}</p>
-            <p>{name}</p>
-            <button onClick={() => setCount(count+1)}>Count</button>
-            <button onClick={() => setCount(0)}>Reset</button>
-            <input type="text" onChange={(e)=>{setName(e.target.value)}}></input>
+            <Link to="/">home</Link>
+            <h1>Lista de Atividades</h1>
+            <p>{atividade}</p>
+            <form onSubmit={salvar}>
+                <input type="text" onChange={(e)=>{setAtividade(e.target.value)}}></input>
+                <button>ADD</button>
+            </form> 
+            {lista.map((ativ)=>
+            <div key={ativ.id}>
+                <p>{ativ.atividade}</p>
+            </div>
+            )}     
         </div>
     );
 }
