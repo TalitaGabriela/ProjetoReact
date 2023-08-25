@@ -1,10 +1,18 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
 export default function Todo(){
-    return (
+    const [atividade, setAtivid] = useState("");
+    const [name, setName] = useState([]);
+    return(
         <div>
-            <h1>PARA FAZER</h1>
-            <ul>
-                <li>Faça isso</li>
-            </ul>
+            <h1>Home</h1>
+            <Link to="/todo">PARA FAZER</Link>
+            <p>{count}</p>
+            <p>{name}</p>
+            <button onClick={() => setCount(count+1)}>Count</button>
+            <button onClick={() => setCount(0)}>Reset</button>
+            <input type="text" onChange={(e)=>{setName(e.target.value)}}></input>
         </div>
     );
 }
