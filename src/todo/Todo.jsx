@@ -15,6 +15,16 @@ export default function Todo(){
         setId(id+1);
     };
 
+    const remover = (id) => {
+        const auxLista = [];
+        lista.map((Lista) => {
+            if (Lista.id !== id) {
+                auxLista.push(Lista);
+            }
+        });
+        setLista(auxLista(lista.filter((ativ) => (ativ.id) !== id ? lista: null)));
+    }
+
     return(
         <div>
             <Link to="/">home</Link>
@@ -23,7 +33,9 @@ export default function Todo(){
             <form onSubmit={salvar}>
                 <input type="text" onChange={(e)=>{setAtividade(e.target.value)}}></input>
                 <button>ADD</button>
-            </form> 
+            <form onSubmit={remover}>
+            <button>REMOVE</button>
+            </form></form> 
             {lista.map((ativ)=>
             <div key={ativ.id}>
                 <p>{ativ.atividade}</p>
