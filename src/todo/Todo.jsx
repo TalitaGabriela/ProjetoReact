@@ -1,46 +1,50 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import "./style.css";
 
-
-export default function Todo(){
+export default function ToDo() {
     const [atividade, setAtividade] = useState("");
     const [lista, setLista] = useState([]);
-    const [id,setId] = useState(1);
-    const salvar = (e) =>{
+    const [id, setId] = useState(1);
+
+    const salvar = (e) => {
         e.preventDefault();
-        setLista([...lista,{
+        setLista([...lista, {
             atividade: atividade,
             id: id
         }]);
-        setId(id+1);
+        setId(id + 1);
+        setAtividade("");
     };
 
     const remover = (id) => {
+        /*setLista(lista.filter((ativ) => (ativ.id !== id ? lista : null)));*/
         const auxLista = [];
-        lista.map((Lista) => {
-            if (Lista.id !== id) {
-                auxLista.push(Lista);
+        lista.map((lista) => {
+            if (lista.id !== id) {
+                auxLista.push(lista);
             }
         });
-        setLista(auxLista(lista.filter((ativ) => (ativ.id) !== id ? lista: null)));
+        setLista(auxLista);
     }
-
-    return(
-        <div>
+    return (
+        <div class="container">
             <Link to="/">home</Link>
             <h1>Lista de Atividades</h1>
-            <p>{atividade}</p>
             <form onSubmit={salvar}>
-                <input type="text" onChange={(e)=>{setAtividade(e.target.value)}}></input>
+                <input type="text"
+                    value={atividade}
+                    onChange={(e) => { setAtividade(e.target.value) }} />
                 <button>ADD</button>
-            <form onSubmit={remover}>
-            <button>REMOVE</button>
-            </form></form> 
-            {lista.map((ativ)=>
-            <div key={ativ.id}>
-                <p>{ativ.atividade}</p>
-            </div>
-            )}     
+            </form>
+            {lista.map((ativ) =>
+                <ul key={ativ.id}>
+                    <li>
+                        <p>{ativ.atividade}</p>
+                        <button onClick={() => remover(ativ.id)}>REMOVE</button>
+                    </li>
+                </ul>
+            )}
         </div>
     );
 }
